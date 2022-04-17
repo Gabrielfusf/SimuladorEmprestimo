@@ -1,0 +1,418 @@
+<style>
+
+ .form{
+    background:#e6e6e6;
+    border-radius:8px;
+    box-shadow:0 0 40px -10px #000;
+    
+    padding:20px 30px;
+    max-width:calc(100vw - 40px);
+    box-sizing:border-box;
+    font-family: 'Poppins';
+    position:relative
+}
+
+body{
+    align-items: center;
+    justify-content: center;
+    padding: 10%;
+    font-family: 'Poppins !important';
+    
+}
+.titilo{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 2%;
+    font-family: 'Poppins';
+    font-size: 24px;
+    
+
+}
+
+
+.inputMargin{
+    margin: 10px 0px;
+ 
+}
+.centralizaConteudo{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.buttonCalcular{
+    margin-top: 15px;
+    width: 49%;
+    color: #e6e6e6;
+    background-color: #0049B1;
+    border-radius: 5px;
+    font-family: 'Poppins';
+}
+label{
+    font-family: 'Poppins';
+    font-size: 17px;
+}
+.buttonsBox{
+    display: flex;
+
+}
+.resultado{
+    border: 1px solid #ccc!important;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: grid;
+    padding: 5px;
+}
+.msgErro{
+    font-size: 12px;
+    color: #ff0000;
+}
+.textoParcelas{
+    font-family: 'Gideon Roman';
+    font-size: 16px;
+    margin-right: 10px;
+}
+.textoValorParcela{
+    font-family: 'Gideon Roman';
+    font-size: 18px;
+    font-weight: 200;
+}
+.separadorResultados{
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ccc!important;;
+}
+
+
+
+</style>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Gideon Roman' rel='stylesheet'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edege" />
+        <meta name="viewport" content="width=device-width, initial-sacle=1.0"/>
+        <link rel="stylesheet" type="text/css" media="screen" />
+        <title>Simule aqui o valor da sua parcela</title>
+    </head>
+<body>
+<div class="form">
+    <div class="titilo">
+    <span>Simule aqui o valor da sua parcela</span>
+    </div>
+
+<div class="centralizaConteudo">
+    <div class="w3-half w3-margin-bottom">
+        <label><i style="margin-right: 5px;"class="fa fa-money"></i>Valor de Empréstimo:</label>
+        <input onKeyPress="return(MascaraMoeda(this,'.',',',event))" class="w3-input w3-border" type="text" id="valor-emprestimo"  placeholder="Digite aqui o valor do empréstimo" required>
+        <span class="msgErro" id="msg-erro"></span>
+        <div>
+            
+            <button class="buttonCalcular" onclick="calcular()">Calcular</button>  
+            <button class="buttonCalcular" onclick="limpar()">Limpar</button>  
+        </div>
+        <div id="divresultado">
+            <div id="separador-12x">
+                <span class="textoParcelas" id="text-12-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela12x"></span>
+            </div>
+
+            <div id="separador-24x">
+                <span class="textoParcelas" id="text-24-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela24x"></span>
+            </div>
+
+            <div id="separador-36x">
+                <span class="textoParcelas" id="text-36-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela36x"></span>
+            </div>
+
+            <div id="separador-42x">
+                <span class="textoParcelas" id="text-42-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela42x"></span>
+            </div>
+
+            <div id="separador-48x">
+                <span class="textoParcelas" id="text-48-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela48x"></span>
+            </div>
+
+            <div id="separador-60x">
+                <span class="textoParcelas" class="textoParcelas" id="text-60-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela60x"></span>
+            </div>
+
+            <div id="separador-72x">
+                <span class="textoParcelas" id="text-72-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela72x"></span>
+            </div>
+            <div id="separador-84x">
+                <span class="textoParcelas" id="text-84-parcelas"></span> <span class="textoValorParcela" id="spanvalor-parcela84x"></span>
+            </div>
+       
+
+           
+        </div>
+        
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>
+
+<script>
+    var imprimeParcelas12xTexto = 'Pagamento em 12 parcelas:';
+    var imprimeParcelas24xTexto = 'Pagamento em 24 parcelas:';
+    var imprimeParcelas36xTexto = 'Pagamento em 36 parcelas:';
+    var imprimeParcelas42xTexto = 'Pagamento em 42 parcelas:';
+    var imprimeParcelas48xTexto = 'Pagamento em 48 parcelas:';
+    var imprimeParcelas60xTexto = 'Pagamento em 60 parcelas:';
+    var imprimeParcelas72xTexto = 'Pagamento em 72 parcelas:';
+    var imprimeParcelas84xTexto = 'Pagamento em 84 parcelas:';
+    var msgErro = 'Digite o valor do Empréstimo'
+
+    //valor do emprestimo
+    var valorEmprestimo = document.querySelector('#valor-emprestimo');
+    var valorEmprestimoReal = 0;
+    
+
+    //seleciona msg erro para exibir
+    var imprimeMsgErro = document.querySelector('#msg-erro');
+
+
+    //seleciona parcelas para exibir
+    var imprimeParcela12x = document.querySelector('#spanvalor-parcela12x');
+    var imprimeParcela24x = document.querySelector('#spanvalor-parcela24x');
+    var imprimeParcela36x = document.querySelector('#spanvalor-parcela36x');
+    var imprimeParcela42x = document.querySelector('#spanvalor-parcela42x');
+    var imprimeParcela48x = document.querySelector('#spanvalor-parcela48x');
+    var imprimeParcela60x = document.querySelector('#spanvalor-parcela60x');
+    var imprimeParcela72x = document.querySelector('#spanvalor-parcela72x');
+    var imprimeParcela84x = document.querySelector('#spanvalor-parcela84x');
+
+    //seleciona divs para imprimir styles
+    var divResultado = document.getElementById("divresultado");
+    var divSepara12x = document.getElementById("separador-12x");
+    var divSepara24x = document.getElementById("separador-24x");
+    var divSepara36x = document.getElementById("separador-36x");
+    var divSepara42x = document.getElementById("separador-42x");
+    var divSepara48x = document.getElementById("separador-48x");
+    var divSepara60x = document.getElementById("separador-60x");
+    var divSepara72x = document.getElementById("separador-72x");
+    var divSepara84x = document.getElementById("separador-84x");
+    
+
+
+    var dozexTexto = document.querySelector('#text-12-parcelas');
+    var vinteequatroxTexto = document.querySelector('#text-24-parcelas');
+    var trintaeseisxTexto = document.querySelector('#text-36-parcelas');
+    var quarentaedoisxTexto = document.querySelector('#text-42-parcelas');
+    var quarentaeoitoxTexto = document.querySelector('#text-48-parcelas');
+    var sessentaxTexto = document.querySelector('#text-60-parcelas');
+    var setentaedoisxTexto = document.querySelector('#text-72-parcelas');
+    var oitentaequatroxTexto = document.querySelector('#text-84-parcelas');
+   
+   
+
+    function calcular (){
+    
+        var objParcelas = {
+	doze : {
+        coeficiente : 0.09668
+    },
+    vinteequatro : {
+        coeficiente : 0.05625
+    },
+    trintaeseis : {
+        coeficiente : 0.04071
+    },
+    quarentaedois : {
+        coeficiente : 0.03632
+    },
+    quarentaeoito : {
+        coeficiente : 0.03284
+    },
+    sessenta : {
+        coeficiente : 0.03904
+    },
+    setentaedois : {
+        coeficiente : 0.02651
+    },
+    oitentaequatro : {
+        coeficiente : 0.02406
+    },
+
+};
+        
+
+        if(valorEmprestimo.value == null || valorEmprestimo.value == ''){
+            imprimeMsgErro.innerHTML = msgErro;
+            return false;
+        }
+
+
+        if(valorEmprestimo.value.indexOf(".") != -1 || valorEmprestimo.value.indexOf(",") != -1 ){
+            valorEmprestimoReal = valorEmprestimo.value.replace('.','').replace(',','.');
+        }
+
+        //divresultado
+        divResultado.classList.add("resultado");
+        divSepara12x.classList.add("separadorResultados")
+        divSepara24x.classList.add("separadorResultados")
+        divSepara36x.classList.add("separadorResultados")
+        divSepara42x.classList.add("separadorResultados")
+        divSepara48x.classList.add("separadorResultados")
+        divSepara60x.classList.add("separadorResultados")
+        divSepara72x.classList.add("separadorResultados")
+
+
+        //limpa msg erro
+        imprimeMsgErro.innerHTML = '';
+
+        //12x
+        imprimeParcela12x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.doze.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        dozexTexto.innerHTML = imprimeParcelas12xTexto;
+        //12x
+
+        //24x
+        imprimeParcela24x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.vinteequatro.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        vinteequatroxTexto.innerHTML = imprimeParcelas24xTexto;
+        //24x
+
+        //36x
+        imprimeParcela36x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.trintaeseis.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        trintaeseisxTexto.innerHTML = imprimeParcelas36xTexto;
+        //36x
+        
+        //42x
+        imprimeParcela42x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.quarentaedois.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        quarentaedoisxTexto.innerHTML = imprimeParcelas42xTexto;
+        //42x
+        
+        //48x
+        imprimeParcela48x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.quarentaeoito.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        quarentaeoitoxTexto.innerHTML = imprimeParcelas48xTexto;
+        //48x
+
+        //60x
+        imprimeParcela60x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.sessenta.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        sessentaxTexto.innerHTML = imprimeParcelas60xTexto;
+        //60x
+
+        //72x
+        imprimeParcela72x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.setentaedois.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        setentaedoisxTexto.innerHTML = imprimeParcelas72xTexto;
+        //72x
+
+        //84x
+        imprimeParcela84x.innerHTML = (parseFloat(valorEmprestimoReal) * objParcelas.oitentaequatro.coeficiente).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        oitentaequatroxTexto.innerHTML = imprimeParcelas84xTexto;
+        //84x
+
+        
+
+}
+
+
+
+ function limpar(){
+
+       divResultado.classList.remove('resultado');
+       divSepara12x.classList.remove("separadorResultados")
+        divSepara24x.classList.remove("separadorResultados")
+        divSepara36x.classList.remove("separadorResultados")
+        divSepara42x.classList.remove("separadorResultados")
+        divSepara48x.classList.remove("separadorResultados")
+        divSepara60x.classList.remove("separadorResultados")
+        divSepara72x.classList.remove("separadorResultados")
+
+
+      //12x
+      imprimeParcela12x.innerHTML = '';
+        dozexTexto.innerHTML = '';
+        //12x
+
+        //24x
+        imprimeParcela24x.innerHTML = '';
+        vinteequatroxTexto.innerHTML = '';
+        //24x
+
+        //36x
+        imprimeParcela36x.innerHTML = '';
+        trintaeseisxTexto.innerHTML = '';
+        //36x
+        
+        //42x
+        imprimeParcela42x.innerHTML = '';
+        quarentaedoisxTexto.innerHTML = '';
+        //42x
+        
+        //48x
+        imprimeParcela48x.innerHTML = '';
+        quarentaeoitoxTexto.innerHTML = '';
+        //48x
+
+        //60x
+        imprimeParcela60x.innerHTML = '';
+        sessentaxTexto.innerHTML = '';
+        //60x
+
+        //72x
+        imprimeParcela72x.innerHTML = '';
+        setentaedoisxTexto.innerHTML = '';
+        //72x
+
+        //84x
+        imprimeParcela84x.innerHTML = '';
+        oitentaequatroxTexto.innerHTML = '';
+        //84x
+
+        document.querySelector('#valor-emprestimo').value = '';
+ }
+
+ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){  
+     var sep = 0;  
+     var key = '';  
+     var i = j = 0;  
+     var len = len2 = 0;  
+     var strCheck = '0123456789';  
+     var aux = aux2 = '';  
+     var whichCode = (window.Event) ? e.which : e.keyCode;  
+     if (whichCode == 13 || whichCode == 8) return true;  
+     key = String.fromCharCode(whichCode); // Valor para o código da Chave  
+     if (strCheck.indexOf(key) == -1) return false; // Chave inválida  
+     len = objTextBox.value.length;  
+     for(i = 0; i < len; i++)  
+         if ((objTextBox.value.charAt(i) != '0') && (objTextBox.value.charAt(i) != SeparadorDecimal)) break;  
+     aux = '';  
+     for(; i < len; i++)  
+         if (strCheck.indexOf(objTextBox.value.charAt(i))!=-1) aux += objTextBox.value.charAt(i);  
+     aux += key;  
+     len = aux.length;  
+     if (len == 0) objTextBox.value = '';  
+     if (len == 1) objTextBox.value = '0'+ SeparadorDecimal + '0' + aux;  
+     if (len == 2) objTextBox.value = '0'+ SeparadorDecimal + aux;  
+     if (len > 2) {  
+         aux2 = '';  
+         for (j = 0, i = len - 3; i >= 0; i--) {  
+             if (j == 3) {  
+                 aux2 += SeparadorMilesimo;  
+                 j = 0;  
+             }  
+             aux2 += aux.charAt(i);  
+             j++;  
+         }  
+         objTextBox.value = '';  
+         len2 = aux2.length;  
+         for (i = len2 - 1; i >= 0; i--)  
+         objTextBox.value += aux2.charAt(i);  
+         objTextBox.value += SeparadorDecimal + aux.substr(len - 2, len);  
+     }  
+     return false;  
+ }  
+
+
+</script>
+
